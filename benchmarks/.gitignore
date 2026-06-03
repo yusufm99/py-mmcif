@@ -1,0 +1,6 @@
+data/
+results/
+dictionaries/
+*.bcif
+*.bcif.gz
+*.csv
