@@ -11,7 +11,9 @@
 import logging
 import struct
 import msgpack
-import warnings
+import math  # for FixedPoint rounding and finite-value checks
+import warnings 
+
 
 from mmcif.api.DataCategoryTyped import DataCategoryTyped, DataCategoryHints
 from mmcif.api.PdbxContainers import CifName
@@ -87,7 +89,8 @@ class BinaryCifWriter(object):
                         colDataList = cObj.getColumn(ii)
                         dataType = self.__getAttributeType(cObj, atName) if not self.__useStringTypes else "string"
                         logger.debug("catName %r atName %r dataType %r", catName, atName, dataType)
-                        colMaskDict, encodedColDataList, encodingDictL = self.__encodeColumnData(colDataList, dataType)
+                        # Pass category/item names so float columns can use coordinate-specific hints
+                        colMaskDict, encodedColDataList, encodingDictL = self.__encodeColumnData(colDataList, dataType, catName, atName)
                         cols.append(
                             {
                                 self.__toBytes("name"): self.__toBytes(atName),
@@ -109,7 +112,8 @@ class BinaryCifWriter(object):
             logger.exception("Failing with %s", str(e))
         return False
 
-    def __encodeColumnData(self, colDataList, dataType):
+    # Accept category/item names so encoder selection can use column-specific hints
+    def __encodeColumnData(self, colDataList, dataType, catName=None, atName=None):
         colMaskDict = None  # Use None when no mask and not {} - per Mol* implementation
         enc = BinaryCifEncoders(defaultStringEncoding=self.__defaultStringEncoding, storeStringsAsBytes=self.__storeStringsAsBytes, useFloat64=self.__useFloat64)
         #
@@ -117,7 +121,8 @@ class BinaryCifWriter(object):
         typeEncoderD = {"string": "StringArrayMasked", "integer": "IntArrayMasked", "float": "FloatArrayMasked"}
         colMaskList = enc.getMask(colDataList)
         dataEncType = typeEncoderD[dataType]
-        colDataEncoded, colDataEncodingDictL = enc.encodeWithMask(colDataList, colMaskList, dataEncType)
+        # Forward category/item names to the masked encoder
+        colDataEncoded, colDataEncodingDictL = enc.encodeWithMask(colDataList, colMaskList, dataEncType, catName=catName, atName=atName)
         if colMaskList:
             # Mol* indicates that masks should be encoded as if uint_8
             colMaskListTyped = TypedArray(colMaskList, "unsigned_integer_8")
@@ -237,9 +242,20 @@ class BinaryCifEncoders(object):
             legacy = True
 
         encDict = None
+        # Track data type changes as chained encoders transform the array
+        currentDataType = dataType
         for encType in encodingTypeList:
+            encArg = None
+            # Allow encoders with parameters, e.g. ("FixedPoint", factor)
+            if isinstance(encType, tuple):
+                encType, encArg = encType
+
             if encType == "ByteArray":
-                colDataList, encDict = self.byteArrayEncoderTyped(colDataList, dataType)
+                colDataList, encDict = self.byteArrayEncoderTyped(colDataList, currentDataType)
+            # FixedPoint converts float values into integer_32 values
+            elif encType == "FixedPoint":
+                colDataList, encDict = self.fixedPointEncoderTyped(colDataList, encArg)
+                currentDataType = "integer"
             elif encType == "Delta":
                 colDataList, encDict = self.deltaEncoderTyped(colDataList)
             elif encType == "RunLength":
@@ -254,7 +270,8 @@ class BinaryCifEncoders(object):
             return colDataList.data, encodingDictL
         return colDataList, encodingDictL
 
-    def encodeWithMask(self, colDataList, colMaskList, encodingType):
+    # Accept category/item names for float-column encoding decisions
+    def encodeWithMask(self, colDataList, colMaskList, encodingType, catName=None, atName=None):
         """Encode the data using the input mask and encoding type returning encoded data and encoding instructions.
 
         Args:
@@ -271,8 +288,9 @@ class BinaryCifEncoders(object):
             encodedColDataList, encodingDictL = self.stringArrayMaskedEncoder(colDataList, colMaskList)
         elif encodingType == "IntArrayMasked":
             encodedColDataList, encodingDictL = self.intArrayMaskedEncoder(colDataList, colMaskList)
+        # Pass category/item names only to the float encoder
         elif encodingType == "FloatArrayMasked":
-            encodedColDataList, encodingDictL = self.floatArrayMaskedEncoder(colDataList, colMaskList)
+            encodedColDataList, encodingDictL = self.floatArrayMaskedEncoder(colDataList, colMaskList, catName=catName, atName=atName)
         else:
             logger.info("unsupported masked encoding %r", encodingType)
         return encodedColDataList, encodingDictL
@@ -434,6 +452,149 @@ class BinaryCifEncoders(object):
             encodedTypedColDataList = TypedArray(encodedColDataList, "integer_32")
             return encodedTypedColDataList, encodingD
 
+    # Convert scaled float values into integer_32 values for later integer encoders
+    def fixedPointEncoderTyped(self, colTypedDataList, factor):
+        """Encode a float array as a 32-bit integer array using FixedPoint.
+
+        Args:
+            colTypedDataList (TypedArray): list of float data (float_32 or float_64)
+            factor (int): multiplier used to convert float values to integers
+
+        Returns:
+            TypedArray: fixed-point encoded integer list (integer_32)
+            dict: binary CIF FixedPoint encoding instructions
+        """
+        if colTypedDataList.dtype and colTypedDataList.dtype not in ["float_32", "float_64"]:
+            raise TypeError("Only float arrays can be encoded with FixedPoint: %s" % colTypedDataList.dtype)
+
+        srcType = colTypedDataList.dtype or ("float_64" if self.__useFloat64 else "float_32")
+        encodedColDataList = [self.__roundLikeMolStar(float(v) * factor) for v in colTypedDataList.data]
+
+        if not self.__fitsInt32(encodedColDataList):
+            raise TypeError("FixedPoint output does not fit in integer_32")
+
+        encodingD = {
+            self.__toBytes("kind"): self.__toBytes("FixedPoint"),
+            self.__toBytes("factor"): factor,
+            self.__toBytes("srcType"): self.__bCifTypeCodeD[srcType],
+        }
+        return TypedArray(encodedColDataList, "integer_32"), encodingD
+
+    # Match Mol* JavaScript rounding behavior during FixedPoint conversion
+    def __roundLikeMolStar(self, value):
+        """Round a float value using JavaScript Math.round-like behavior.
+
+        Args:
+            value (float): input float value
+
+        Returns:
+            int: rounded integer value
+        """
+        return int(math.floor(value + 0.5))
+
+    # Ensure FixedPoint output can safely be stored as integer_32
+    def __fitsInt32(self, data):
+        """Check whether all input values fit in a signed 32-bit integer array.
+
+        Args:
+            data (list): list of integer values
+
+        Returns:
+            bool: True if all values fit in signed 32-bit integer range, otherwise False
+        """
+        return all(-2147483648 <= int(v) <= 2147483647 for v in data)
+
+    # Check whether the current column is one of the Cartesian coordinate columns
+    def __isCoordinateItem(self, catName, atName):
+        """Identify atom_site Cartesian coordinate attributes.
+
+        Args:
+            catName (str): category name
+            atName (str): attribute name
+
+        Returns:
+            bool: True for _atom_site.Cartn_x, _atom_site.Cartn_y, or _atom_site.Cartn_z
+        """
+        if not catName or not atName:
+            return False
+        cat = str(catName)
+        if cat.startswith("_"):
+            cat = cat[1:]
+        itemName = "_%s.%s" % (cat, atName)
+        return itemName in {"_atom_site.Cartn_x", "_atom_site.Cartn_y", "_atom_site.Cartn_z"}
+
+    # Use factor 1000 for coordinates, otherwise scan the column for needed precision
+    def __getFloatFixedPointFactor(self, colDataList, catName=None, atName=None):
+        """Determine the FixedPoint multiplier for a float data column.
+
+        Args:
+            colDataList (list): input float data column
+            catName (str, optional): category name. Defaults to None.
+            atName (str, optional): attribute name. Defaults to None.
+
+        Returns:
+            int or None: FixedPoint multiplier, or None if FixedPoint encoding should not be used
+        """
+        if self.__isCoordinateItem(catName, atName):
+            return 1000
+
+        maxDigits = 4
+        delta = 1.0e-6
+        mantissaDigits = 0
+
+        for val in colDataList:
+            v = float(val)
+            if not math.isfinite(v):
+                return None
+
+            factor = 1
+            foundDigits = None
+            for digits in range(maxDigits):
+                scaled = factor * v
+                if abs(round(scaled) - scaled) <= delta:
+                    foundDigits = digits
+                    break
+                factor *= 10
+
+            if foundDigits is None:
+                return None
+            if foundDigits > mantissaDigits:
+                mantissaDigits = foundDigits
+
+        return 10 ** mantissaDigits
+
+    # Try each FixedPoint integer chain and keep the smallest byte output
+    def __encodeBestFixedPointChain(self, colDataList, factor):
+        """Encode a float column using FixedPoint and the smallest integer encoder chain.
+
+        Args:
+            colDataList (list): input float data column
+            factor (int): FixedPoint multiplier
+
+        Returns:
+            (list, list): encoded data column and list of encoding instructions
+        """
+        candidateEncoderLists = [
+            [("FixedPoint", factor), "IntegerPacking", "ByteArray"],
+            [("FixedPoint", factor), "RunLength", "IntegerPacking", "ByteArray"],
+            [("FixedPoint", factor), "Delta", "IntegerPacking", "ByteArray"],
+            [("FixedPoint", factor), "Delta", "RunLength", "IntegerPacking", "ByteArray"],
+        ]
+
+        best = None
+        for encoderList in candidateEncoderLists:
+            try:
+                encodedColDataList, encodingDictL = self.encode(list(colDataList), encoderList, "float")
+                size = len(encodedColDataList)
+                if best is None or size < best[0]:
+                    best = (size, encodedColDataList, encodingDictL)
+            except Exception as e:
+                logger.debug("Skipping float encoder chain %r: %s", encoderList, str(e))
+
+        if best is None:
+            return None, None
+        return best[1], best[2]
+    
     def stringArrayMaskedEncoder(self, colDataList, colMaskList):
         """Encode the input data column (string) along with the incompleteness mask.
 
@@ -497,25 +658,50 @@ class BinaryCifEncoders(object):
         encodedColDataList, encodingDictL = self.encode(maskedColDataList, integerEncoderList, "integer")
         return encodedColDataList, encodingDictL
 
-    def floatArrayMaskedEncoder(self, colDataList, colMaskList):
+    # Encode float columns with FixedPoint chains instead of ByteArray-only when safe
+    def floatArrayMaskedEncoder(self, colDataList, colMaskList, catName=None, atName=None):
         """Encode the input data column (float) along with the incompleteness mask.
 
         Args:
-            colDataList (list): input data column (string)
+            colDataList (list): input data column (float)
             colMaskList (list): incompleteness mask
+            catName (str, optional): category name. Defaults to None.
+            atName (str, optional): attribute name. Defaults to None.
 
         Returns:
             (list, list): encoded data column, list of encoding instructions
         """
-        floatEncoderList = ["ByteArray"]
+        # Keep ByteArray as the safe fallback
+        fallbackEncoderList = ["ByteArray"]
 
+        # Encode missing float values as 0.0; the separate mask preserves missingness
         if colMaskList:
             maskedColDataList = [0.0 if m else d for m, d in zip(colMaskList, colDataList)]
         else:
             maskedColDataList = colDataList
-        encodedColDataList, encodingDictL = self.encode(maskedColDataList, floatEncoderList, "float")
-        return encodedColDataList, encodingDictL
 
+        # Small columns are not worth classifying
+        if len(maskedColDataList) < 2:
+            return self.encode(maskedColDataList, fallbackEncoderList, "float")
+
+        # Pick the FixedPoint multiplier for this float column
+        factor = self.__getFloatFixedPointFactor(maskedColDataList, catName=catName, atName=atName)
+        if factor is None:
+            return self.encode(maskedColDataList, fallbackEncoderList, "float")
+
+        # Confirm the scaled values fit the integer_32 FixedPoint requirement
+        fixedPointValues = [self.__roundLikeMolStar(float(v) * factor) for v in maskedColDataList]
+        if not self.__fitsInt32(fixedPointValues):
+            return self.encode(maskedColDataList, fallbackEncoderList, "float")
+
+        # Run the candidate chains and keep the smallest encoded result
+        encodedColDataList, encodingDictL = self.__encodeBestFixedPointChain(maskedColDataList, factor)
+        if encodedColDataList is None:
+            return self.encode(maskedColDataList, fallbackEncoderList, "float")
+
+        return encodedColDataList, encodingDictL
+    
+    
     def getMask(self, colDataList):
         """Create an incompleteness mask list identifying missing/omitted values in the input data column.
         The mask is assigned: 0 = Value is present, 1 = '.' (value not specified), and 2 = '?' (value unknown).
