@@ -1,0 +1,539 @@
+{
+  "generated_utc": "2026-06-25T14:25:32.331502+00:00",
+  "script_version": "1.0.2-streaming",
+  "argv": [
+    "/home/ym99/yusufm99/py-mmcif/benchmarks/scripts/benchmark_bcif_speed_optimizations_streaming.py",
+    "--repo",
+    "/home/ym99/yusufm99/py-mmcif",
+    "--manifest",
+    "/home/ym99/yusufm99/py-mmcif/benchmarks/data/bcif_speed_manifest_full.tsv",
+    "--results-dir",
+    "/home/ym99/yusufm99/py-mmcif/benchmarks/results/bcif_speed_full_confirmation_streaming",
+    "--timing-root",
+    "/home/ym99/yusufm99/py-mmcif/benchmarks/results/bcif_speed_streaming_tmp",
+    "--warmups",
+    "1",
+    "--runs",
+    "7",
+    "--variants",
+    "pr_current,all_exact,all_exact_repeat",
+    "--java-verifier",
+    "/mnt/c/Users/jl728/yusufm99/ciftools-performance/encoding-verifier.jar"
+  ],
+  "python": "3.13.0 (main, May 25 2026, 19:51:41) [GCC 13.3.0]",
+  "executable": "/home/ym99/.pyenv/versions/3.13.0/bin/python",
+  "platform": "Linux-6.18.33.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "processor": "x86_64",
+  "cpu_count": 8,
+  "cpu_affinity": "not requested",
+  "repo": "/home/ym99/yusufm99/py-mmcif",
+  "git": {
+    "commit": "e1037d385afb5a222b67e8b5a9167abf6ab8e1b7",
+    "branch": "benchmark/pymmcif-baseline",
+    "status": "M .gitignore\n M mmcif/io/BinaryCifWriter.py\n D mmcif/io/BinaryCifWriter.py-save\n D mmcif/io/BinaryCifWriter.py-working\n M mmcif/tests/testPdbxReader.py\n?? 4HHB.bcif\n?? benchmarks/partner_scripts/\n?? benchmarks/reference/\n?? benchmarks/scripts/BACKUP_master_bcif_benchmark_verify_inspect.py.bak_auto_dicts\n?? benchmarks/scripts/OLD_master_bcif_benchmark_verify_inspect.py\n?? benchmarks/scripts/OLD_testMmcifBcifConvert.py\n?? benchmarks/scripts/benchmark_bcif_speed_optimizations.py\n?? benchmarks/scripts/benchmark_bcif_speed_optimizations_streaming.py\n?? benchmarks/scripts/benchmark_pr_10_structures.py\n?? benchmarks/scripts/compare_4hhb_float64_vs_float32_bcif.py\n?? benchmarks/scripts/decode_coordinate_factor_subset.py\n?? benchmarks/scripts/download_ihm_targets.sh\n?? benchmarks/scripts/full_float64_vs_float32_tradeoff.py\n?? benchmarks/scripts/master_bcif_benchmark_verify_inspect.py\n?? benchmarks/scripts/testMmcifBcifConvert.py\n?? benchmarks/scripts/test_bcif_write_flags_4hhb.py\n?? benchmarks/scripts/test_float_fallback_strategies.py\n?? benchmarks/scripts/validate_bcif_roundtrip.py\n?? mmcif/io/AUTODETECT_ALL_BinaryCifWriter.py\n?? mmcif/io/HARDCODE_ALL_2_BinaryCifWriter.py\n?? mmcif/io/HARDCODE_ALL_LAST_THING_I_DID_AT_WORK_TUESDAYBinaryCifWriter.py\n?? mmcif/io/LAST_THING_I_DID_AT_HOME_TUESDAY_BinaryCifWriter.py\n?? mmcif/io/ORIGINAL_BinaryCifWriter.py\n?? mmcif/io/TIME_DIAGNOSTIC_2_BinaryCifWriter.py\n?? mmcif/io/TIME_DIAGNOSTIC_BinaryCifWriter.py\n?? run_bcif_full_confirmation.sh\n?? run_bcif_full_confirmation_streaming.sh",
+    "remote": "https://github.com/yusufm99/py-mmcif.git"
+  },
+  "writer_source": "/home/ym99/yusufm99/py-mmcif/mmcif/io/BinaryCifWriter.py",
+  "writer_source_sha256": "d7365ae083baf213ea16131c3322c23a6c12f7e49b6a9622125d95c845040e6d",
+  "variants": [
+    "pr_current",
+    "all_exact",
+    "all_exact_repeat"
+  ],
+  "entries": [
+    {
+      "structure_id": "10DK",
+      "kind": "PDB",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/10DK.cif",
+      "cif_sha256": "9acc55a246ea3cf95aaabe4d3221d6ff860cf870df790239e02838a2fa34714b",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca"
+      }
+    },
+    {
+      "structure_id": "11BJ",
+      "kind": "PDB",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/11BJ.cif",
+      "cif_sha256": "30a5ccb9af26bc1cfe6016cded38ed1ce590ad28c906b6ddd860a02294b54998",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca"
+      }
+    },
+    {
+      "structure_id": "11HB",
+      "kind": "PDB",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/11HB.cif",
+      "cif_sha256": "22a8776ac17a688114ced8467e556279f0b1a89ad912ae790fa3cf756ad52a66",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca"
+      }
+    },
+    {
+      "structure_id": "11TG",
+      "kind": "PDB",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/11TG.cif",
+      "cif_sha256": "9058e1380b02f88b9db9895fe41ab1e628e24244f60119391b4104722c7135fa",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca"
+      }
+    },
+    {
+      "structure_id": "12GB",
+      "kind": "PDB",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/12GB.cif",
+      "cif_sha256": "312225e5a7454c9e15bf008fd76868021b0b1efa52a7c836523915261242209a",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca"
+      }
+    },
+    {
+      "structure_id": "1RMN",
+      "kind": "PDB",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/1RMN.cif",
+      "cif_sha256": "782450258a27f14bc87644e5a7916803fafaac6132b664fe806409dbb55526ac",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca"
+      }
+    },
+    {
+      "structure_id": "1SSZ",
+      "kind": "PDB",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/1SSZ.cif",
+      "cif_sha256": "cf42b3e8d41345741da7de008a29090af48905c72c24c07f7124d88261b7b1a1",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca"
+      }
+    },
+    {
+      "structure_id": "1UR6",
+      "kind": "PDB",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/1UR6.cif",
+      "cif_sha256": "ec42f2418c75d5060e9db739cf7327c724684b16f14268244cad20e318854aa1",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca"
+      }
+    },
+    {
+      "structure_id": "2BVK",
+      "kind": "PDB",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/2BVK.cif",
+      "cif_sha256": "446c0ebd38bd60d503ce86bccbe19ae8a1c5994309a578ef03a2ef1a2c49d047",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca"
+      }
+    },
+    {
+      "structure_id": "2LGI",
+      "kind": "PDB",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/2LGI.cif",
+      "cif_sha256": "d37b450724c6c37c9677f5e6cb8da6fc340a9e1b08f9035727c9697d00856806",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca"
+      }
+    },
+    {
+      "structure_id": "2XKM",
+      "kind": "PDB",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/2XKM.cif",
+      "cif_sha256": "0a9460e9ed78f6144f734f42be3c1332ec4e030daaa8ebdb7b860b4086bdbc36",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca"
+      }
+    },
+    {
+      "structure_id": "3HQV",
+      "kind": "PDB",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/3HQV.cif",
+      "cif_sha256": "5b1135c6836062ea0fbf896270e29bd02c560af2d2573aeaa3a09798b431d1b7",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca"
+      }
+    },
+    {
+      "structure_id": "3IFX",
+      "kind": "PDB",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/3IFX.cif",
+      "cif_sha256": "78a50dfd3a907dc7e919bf71589450408ec9b0b20d0fec49b50ea5e557d3b06d",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca"
+      }
+    },
+    {
+      "structure_id": "3J3Q",
+      "kind": "PDB",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/3J3Q.cif",
+      "cif_sha256": "6900fc1a7fae2b49d02872458413c48dde7e686ba27a747b1ed486a7b0ba354d",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca"
+      }
+    },
+    {
+      "structure_id": "3PDM",
+      "kind": "PDB",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/3PDM.cif",
+      "cif_sha256": "8c7e8bb60a374218558d7d2662651d6ee3251298ec0534d684287117ff96229f",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca"
+      }
+    },
+    {
+      "structure_id": "4BTS",
+      "kind": "PDB",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/4BTS.cif",
+      "cif_sha256": "dd3ead55a5da43571569360dc2c7646620276093fd95c5939fcc0e19dbe38cb5",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca"
+      }
+    },
+    {
+      "structure_id": "4HHB",
+      "kind": "PDB",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/4HHB.cif",
+      "cif_sha256": "6c977e3c48fcae60ef116dffff90ce2ae2dbc987f39c3f930d325361a1916812",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca"
+      }
+    },
+    {
+      "structure_id": "6VC1",
+      "kind": "PDB",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/6VC1.cif",
+      "cif_sha256": "ec0285eb4b2d01f9e6a8abe69000bd089d80301d0e94cb9022229c98e564672f",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca"
+      }
+    },
+    {
+      "structure_id": "7ART",
+      "kind": "PDB",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/7ART.cif",
+      "cif_sha256": "a01b71cb41eb00219feaffc9281662abb3185db5d78dbf89ca8ffbe644a397fd",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca"
+      }
+    },
+    {
+      "structure_id": "9HH6",
+      "kind": "PDB",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/9HH6.cif",
+      "cif_sha256": "a44275e0dd8e3060901fa07bb5e651b57144fa8d0d69750808555ca04c9d49fd",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca"
+      }
+    },
+    {
+      "structure_id": "9O5G",
+      "kind": "PDB",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/9O5G.cif",
+      "cif_sha256": "80e1b701baf4fab59b4766cd80cb8bb922ca435f44ab41035e88aab0994d298e",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca"
+      }
+    },
+    {
+      "structure_id": "9QW5",
+      "kind": "PDB",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/9QW5.cif",
+      "cif_sha256": "77e1457caeb9b27afe0635db267901ba507645ad533f5f3794a68fd563aa8252",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca"
+      }
+    },
+    {
+      "structure_id": "8ZZ1",
+      "kind": "IHM",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/8ZZ1.cif",
+      "cif_sha256": "f1c8e588e11b8c7eb42e03e951de9e78ce6749c6598ebf2fc329901ae6e50603",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ihm_ext.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ihm_ext.dic": "9d2d5ba4a1e683b572cb35b473b3d81312912beb9cd62d1a450b3c36c0fb4f55"
+      }
+    },
+    {
+      "structure_id": "8ZZI",
+      "kind": "IHM",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/8ZZI.cif",
+      "cif_sha256": "5f85e85c1d9a2a7ea2ead556e9c8b928b298cea8b79d62d44e1b2b544949b221",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ihm_ext.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ihm_ext.dic": "9d2d5ba4a1e683b572cb35b473b3d81312912beb9cd62d1a450b3c36c0fb4f55"
+      }
+    },
+    {
+      "structure_id": "9A01",
+      "kind": "IHM",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/9A01.cif",
+      "cif_sha256": "fad931634df32ec54477ff2854aa0ab47ee5aa46fd8997c12ed94bdbf99d43ff",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ihm_ext.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ihm_ext.dic": "9d2d5ba4a1e683b572cb35b473b3d81312912beb9cd62d1a450b3c36c0fb4f55"
+      }
+    },
+    {
+      "structure_id": "9A1G",
+      "kind": "IHM",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/9A1G.cif",
+      "cif_sha256": "9db51c89c1d8c15fed176f597851f431df8cc0f64182c1724d84f6c485002f99",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ihm_ext.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ihm_ext.dic": "9d2d5ba4a1e683b572cb35b473b3d81312912beb9cd62d1a450b3c36c0fb4f55"
+      }
+    },
+    {
+      "structure_id": "9A25",
+      "kind": "IHM",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/9A25.cif",
+      "cif_sha256": "a4ff28d1d79ae2492316a6de4bf6be1e03e889ec309fb125501683e32467f774",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ihm_ext.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ihm_ext.dic": "9d2d5ba4a1e683b572cb35b473b3d81312912beb9cd62d1a450b3c36c0fb4f55"
+      }
+    },
+    {
+      "structure_id": "9A8K",
+      "kind": "IHM",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/9A8K.cif",
+      "cif_sha256": "7ebc8431fcf632f344ae4d6f25d962ae04acc224ce0cc0dc64b3f700782c6c6e",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ihm_ext.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ihm_ext.dic": "9d2d5ba4a1e683b572cb35b473b3d81312912beb9cd62d1a450b3c36c0fb4f55"
+      }
+    },
+    {
+      "structure_id": "9A8M",
+      "kind": "IHM",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/9A8M.cif",
+      "cif_sha256": "5782dbb4d2574ac6b43664cec1359c69046146e078c894c7049a5655d51ccffa",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ihm_ext.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ihm_ext.dic": "9d2d5ba4a1e683b572cb35b473b3d81312912beb9cd62d1a450b3c36c0fb4f55"
+      }
+    },
+    {
+      "structure_id": "9AAO",
+      "kind": "IHM",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/9AAO.cif",
+      "cif_sha256": "d763176a13cc6baf492329a9aedef748bc8b3983923078dbc3e72da7b54b1397",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ihm_ext.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ihm_ext.dic": "9d2d5ba4a1e683b572cb35b473b3d81312912beb9cd62d1a450b3c36c0fb4f55"
+      }
+    },
+    {
+      "structure_id": "AF_AFA0A017SEY2F1",
+      "kind": "CSM",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/AF_AFA0A017SEY2F1.cif",
+      "cif_sha256": "eb42a95776c79d74ca4868e71e1fb7675d5155d4c986a6d4684143f13a109897",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ma_ext.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ma_ext.dic": "d1bd7db9dba5375b4714f99e6a6147ccff9f30bf9d88d73980fa1c181892ade0"
+      }
+    },
+    {
+      "structure_id": "AF_AFA0A017SQ41F1",
+      "kind": "CSM",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/AF_AFA0A017SQ41F1.cif",
+      "cif_sha256": "b1e81a26a2941750528b28a7a8267beaaec714de0174c26becca78d872bd5931",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ma_ext.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ma_ext.dic": "d1bd7db9dba5375b4714f99e6a6147ccff9f30bf9d88d73980fa1c181892ade0"
+      }
+    },
+    {
+      "structure_id": "MA_MAASFVASFVG001",
+      "kind": "CSM",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/MA_MAASFVASFVG001.cif",
+      "cif_sha256": "be458e0134d2daeac22731688ffa072f57afb595272527a10a4681d7884cbe97",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ma_ext.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ma_ext.dic": "d1bd7db9dba5375b4714f99e6a6147ccff9f30bf9d88d73980fa1c181892ade0"
+      }
+    },
+    {
+      "structure_id": "MA_MABAKCEPC0001",
+      "kind": "CSM",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/MA_MABAKCEPC0001.cif",
+      "cif_sha256": "e127c6d8a5c7fdc8ccf6841ea0e11093ff57bde8ce6affcf2b57b57206684c42",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ma_ext.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ma_ext.dic": "d1bd7db9dba5375b4714f99e6a6147ccff9f30bf9d88d73980fa1c181892ade0"
+      }
+    },
+    {
+      "structure_id": "MA_MACOFFESLACC100000G1I1",
+      "kind": "CSM",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/MA_MACOFFESLACC100000G1I1.cif",
+      "cif_sha256": "fffae42ba1b91e7d55e7d2a15fb4fc496260cabdc4bf913739f392274ab0bb0b",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ma_ext.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ma_ext.dic": "d1bd7db9dba5375b4714f99e6a6147ccff9f30bf9d88d73980fa1c181892ade0"
+      }
+    },
+    {
+      "structure_id": "MA_MAORNLSPHDIV00001",
+      "kind": "CSM",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/MA_MAORNLSPHDIV00001.cif",
+      "cif_sha256": "8b9aca833f7bed01d896ddae57c59ab1253647080b3605a7fe4c20bbe542cb17",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ma_ext.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ma_ext.dic": "d1bd7db9dba5375b4714f99e6a6147ccff9f30bf9d88d73980fa1c181892ade0"
+      }
+    },
+    {
+      "structure_id": "MA_MAT3VR3003",
+      "kind": "CSM",
+      "cif_path": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/cif/MA_MAT3VR3003.cif",
+      "cif_sha256": "14d5f57ebf0431bf395210bb1a5e3168bc68579d23f6d699a3e15937c9323a96",
+      "dictionary_paths": [
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ma_ext.dic"
+      ],
+      "dictionary_sha256": {
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_pdbx_v50.dic": "6ec19c054d4412ca6b6239f4b4e87cd7e6e75b1dcee9e6cc6bfe931892e08eca",
+        "/home/ym99/yusufm99/py-mmcif/benchmarks/dictionaries/mmcif_ma_ext.dic": "d1bd7db9dba5375b4714f99e6a6147ccff9f30bf9d88d73980fa1c181892ade0"
+      }
+    }
+  ],
+  "settings": {
+    "repo": "/home/ym99/yusufm99/py-mmcif",
+    "manifest": "/home/ym99/yusufm99/py-mmcif/benchmarks/data/bcif_speed_manifest_full.tsv",
+    "write_manifest_template": null,
+    "results_dir": "/home/ym99/yusufm99/py-mmcif/benchmarks/results/bcif_speed_full_confirmation_streaming",
+    "timing_root": "/home/ym99/yusufm99/py-mmcif/benchmarks/results/bcif_speed_streaming_tmp",
+    "warmups": 1,
+    "runs": 7,
+    "seed": 20260624,
+    "cpu": null,
+    "disable_gc": false,
+    "use_float64": true,
+    "store_strings_as_bytes": false,
+    "java_verifier": "/mnt/c/Users/jl728/yusufm99/ciftools-performance/encoding-verifier.jar",
+    "measure_memory": false,
+    "profile_structure": [],
+    "profile_variant": [],
+    "variants": "pr_current,all_exact,all_exact_repeat"
+  }
+}

@@ -107,3 +107,8 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# BCIF speed benchmark generated artifacts
+benchmarks/results/bcif_speed_full_confirmation_streaming/
+benchmarks/results/bcif_speed_streaming_tmp/
+benchmarks/results/bcif_speed_full_confirmation_streaming_console.log

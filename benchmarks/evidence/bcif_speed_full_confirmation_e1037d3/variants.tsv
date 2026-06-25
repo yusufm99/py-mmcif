@@ -1,0 +1,4 @@
+variant	description	expected_byte_identical	expected_semantic_identical	tradeoff
+pr_current	Unmodified current PR: fully encode all four general FixedPoint candidates.	True	True	False
+all_exact	Combine all exact optimizations with array.array ByteArray output.	True	True	False
+all_exact_repeat	Combine all exact optimizations with compact repeated-struct ByteArray output.	True	True	False

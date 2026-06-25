@@ -1,0 +1,4 @@
+variant	structures	sum_median_wall_seconds	sum_median_cpu_seconds	total_size_bytes	all_byte_identical_to_pr	all_semantic_identical_to_pr	all_java_verifier_pass	median_per_structure_wall_change_percent_vs_pr	median_per_structure_size_change_percent_vs_pr	aggregate_wall_faster_percent_vs_pr	aggregate_wall_change_percent_vs_pr	aggregate_size_change_bytes_vs_pr	aggregate_size_change_percent_vs_pr
+pr_current	37	117.395277843	117.168234776	78867022	True	True	True	0.0	0.0	0.0	0.0	0	0.0
+all_exact	37	104.11353777	103.997678607	78867022	True	True	True	-10.139344411511189	0.0	11.313691927849522	-11.313691927849522	0	0.0
+all_exact_repeat	37	105.083591831	105.009297772	78867022	True	True	True	-9.884463895268778	0.0	10.487377548920817	-10.487377548920817	0	0.0
